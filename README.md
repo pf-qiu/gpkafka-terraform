@@ -5,9 +5,20 @@ https://cloud.google.com/sdk/
 
 https://www.terraform.io/downloads.html
 
+Run
+```
+gcloud init
+```
+Login with google account, select the same zone in variable.tf.
+Default is us-west1-a.
+
+
 1. Download GCP service account credential
 
 Console Home -> IAM & admin -> Service accounts
+
+Create your on account, select owner as role.
+Download key through "action -> create key"
 
 2. Generate ssh key, add to project wide meta
 ```
@@ -37,3 +48,16 @@ gcloud compute ssh gpadmin@mdw --ssh-key-file id_rsa
 ```
 SEGMENT_PER_HOST=3 ./gpdb_setup.sh
 ```
+
+7. Delete all resources after work is done
+```
+terraform destroy
+```
+
+## TODOs
+
+1. Add prefix to resource names to prevent conflict.
+
+2. Add tf definition to setup kafka cluster and etl server.
+
+3. Add storage disk to segment hosts, modify init_config dir locations.
