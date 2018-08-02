@@ -28,8 +28,10 @@ Console Home -> Compute Engine -> Metadata -> SSH Keys
 
 3. Run gen_seg_config.sh with segment number, default is 1
 ```
-NUM_SEGHOSTS=3 ./gen_seg_config.sh
+NAME_PREFIX=gpdb NUM_SEGHOSTS=3 source gen_seg_config.sh
 ```
+Use **source** to execute in current shell. This will 
+introduce $NAME_PREFIX, which is necessary in gpdb_setup.sh
 
 4. Setup GCP resources via terraform
 ```

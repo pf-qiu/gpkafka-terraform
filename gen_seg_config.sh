@@ -2,23 +2,35 @@
 rm -f seg*.tf
 rm -f hosts_all
 rm -f hosts_segs
-echo mdw > hosts_all
+
+NAME_PREFIX=${NAME_PREFIX:-gpdb}
+export NAME_PREFIX=$NAME_PREFIX
+echo $NAME_PREFIX-mdw > hosts_all
+cat > prefix.tf <<-EOF
+variable "name_prefix" {
+  default = "$NAME_PREFIX-"
+}
+
+EOF
+
 
 NUM_SEGHOSTS=${NUM_SEGHOSTS:-1}
 for (( id=0; id<$NUM_SEGHOSTS; id++))
 do
 
-echo sdw$id >> hosts_all
-echo sdw$id >> hosts_segs
+echo $NAME_PREFIX-sdw$id >> hosts_all
+echo $NAME_PREFIX-sdw$id >> hosts_segs
 
 cat > seg$id.tf <<-EOF
 resource "google_compute_instance" "sdw$id" {
-  name         = "sdw$id"
-  machine_type = "\${var.machine_type}"
+  name         = "\${var.name_prefix}sdw$id"
+  machine_type = "\${var.segment_machine_type}"
 
   boot_disk {
     initialize_params {
-      image = "centos-cloud/centos-6"
+      image = "\${var.segment_disk_image}"
+      type  = "\${var.segment_disk_type}"
+      size  = "\${var.segment_disk_size}"
     }
   }
 

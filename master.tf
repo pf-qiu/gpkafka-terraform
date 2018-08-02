@@ -1,11 +1,13 @@
 resource "google_compute_instance" "mdw" {
-  name         = "mdw"
+  name                      = "${var.name_prefix}mdw"
   allow_stopping_for_update = "true"
-  machine_type = "${var.machine_type}"
+  machine_type              = "${var.segment_machine_type}"
 
   boot_disk {
     initialize_params {
-      image = "centos-cloud/centos-6"
+      image = "${var.segment_disk_image}"
+      type  = "${var.segment_disk_type}"
+      size  = "${var.segment_disk_size}"
     }
   }
 
