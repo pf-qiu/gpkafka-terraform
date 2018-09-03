@@ -2,6 +2,7 @@ set -e
 gsutil cp gs://gpdb-test/* .
 mkdir greenplum-db-devel
 tar -xf bin_gpdb.tar.gz -C greenplum-db-devel
+tar -xf gpss_component.tar.gz -C greenplum-db-devel
 sed -i -e "s/^GPHOME=.*/GPHOME=\/home\/gpadmin\/greenplum-db-devel/g" greenplum-db-devel/greenplum_path.sh
 source greenplum-db-devel/greenplum_path.sh
 

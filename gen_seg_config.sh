@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -f seg*.tf
+rm -f segments.tf
 rm -f hosts_all
 rm -f hosts_segs
 
@@ -21,7 +21,7 @@ do
 echo $NAME_PREFIX-sdw$id >> hosts_all
 echo $NAME_PREFIX-sdw$id >> hosts_segs
 
-cat > seg$id.tf <<-EOF
+cat >> segments.tf <<-EOF
 resource "google_compute_instance" "sdw$id" {
   name         = "\${var.name_prefix}sdw$id"
   machine_type = "\${var.segment_machine_type}"
