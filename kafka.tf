@@ -17,6 +17,10 @@ resource "google_compute_instance" "kafka" {
     access_config {}
   }
 
+  scratch_disk {
+      interface = "NVME"
+  }
+
   service_account {
     scopes = ["storage-ro"]
   }

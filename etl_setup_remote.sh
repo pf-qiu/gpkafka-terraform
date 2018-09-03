@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 gsutil cp gs://gpdb-test/gpss_component.tar.gz .
 mkdir gpss

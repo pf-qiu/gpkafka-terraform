@@ -43,7 +43,9 @@ terraform apply
 
 5. Test GPDB master
 ```
-gcloud compute ssh gpadmin@mdw --ssh-key-file id_rsa
+gcloud compute ssh gpadmin@gpdb-mdw --ssh-key-file id_rsa
+gcloud compute ssh gpadmin@gpdb-kafka --ssh-key-file id_rsa
+gcloud compute ssh gpadmin@gpdb-etl --ssh-key-file id_rsa
 ```
 
 6. Run gpdb_setup.sh with segment per host, default is 2
@@ -51,15 +53,25 @@ gcloud compute ssh gpadmin@mdw --ssh-key-file id_rsa
 SEGMENT_PER_HOST=3 ./gpdb_setup.sh
 ```
 
-7. Delete all resources after work is done
+7. Run kafka_stup.sh with kafka nodes per host, default is 8
+```
+KAFKA_PER_HOST=4 ./kafka_setup.sh
+```
+
+8. Run etl_setup.sh
+```
+./etl_setup.sh
+```
+When using etl server, run
+```
+export LD_LIBRARY_PATH=/usr/local/lib
+```
+
+9. Delete all resources after work is done
 ```
 terraform destroy
 ```
 
 ## TODOs
 
-1. Add prefix to resource names to prevent conflict.
-
-2. Add tf definition to setup kafka cluster and etl server.
-
-3. Add storage disk to segment hosts, modify init_config dir locations.
+1. Add storage disk to segment hosts, modify init_config dir locations.
