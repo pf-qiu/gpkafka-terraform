@@ -1,6 +1,6 @@
 #!/bin/bash
 set -exo
-sudo ./kafka_env_setup.sh
+sudo ./kafka_setup_env.sh
 gsutil cp gs://gpdb-test/confluent-oss-4.0.0-2.11.tar.gz .
 tar -xf confluent-oss-4.0.0-2.11.tar.gz
 export PATH=`pwd`/confluent-4.0.0/bin:$PATH

@@ -1,6 +1,6 @@
 
 variable "segment_machine_type" {
-  default = "n1-standard-2"
+  default = "n1-standard-8"
 }
 
 variable "segment_disk_image" {

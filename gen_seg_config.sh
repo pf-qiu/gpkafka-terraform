@@ -34,6 +34,10 @@ resource "google_compute_instance" "sdw$id" {
     }
   }
 
+  scratch_disk {
+      interface = "NVME"
+  }
+
   network_interface {
     subnetwork = "\${google_compute_subnetwork.gpdb_subnet.name}"
   }

@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 gsutil cp gs://gpdb-test/* .
 mkdir greenplum-db-devel
@@ -8,6 +9,9 @@ source greenplum-db-devel/greenplum_path.sh
 
 gpssh-exkeys -f hosts_all
 gpseginstall -f hosts_all
+
+gpscp -f hosts_segs gpdb_setup_env.sh =:/home/gpadmin/
+echo "sudo gpdb_setup_env.sh" | gpssh -f hosts_segs
 
 mkdir -p $MASTER_BASE_DIR
 echo "mkdir -p $SEGMENT_BASE_DIR" | gpssh -f hosts_segs
