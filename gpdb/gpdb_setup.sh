@@ -22,10 +22,12 @@ ENCODING=UNICODE
 
 EOF
 
-gcloud compute scp id_rsa id_rsa.pub gpadmin@$NAME_PREFIX-mdw:~/.ssh/ --ssh-key-file id_rsa
-gcloud compute scp gpdb_setup_remote.sh gpdb_setup_env.sh init_config hosts_all hosts_segs gpadmin@$NAME_PREFIX-mdw:~/ --ssh-key-file id_rsa
-gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file id_rsa <<-EOF
+gcloud compute scp ${GCLOUD_SSH_KEY} ${GCLOUD_SSH_KEY}.pub gpadmin@$NAME_PREFIX-mdw:~/.ssh/ --ssh-key-file ${GCLOUD_SSH_KEY}
+gcloud compute scp gpdb_setup_remote.sh gpdb_setup_env.sh init_config hosts_all hosts_segs gpadmin@$NAME_PREFIX-mdw:~/ --ssh-key-file ${GCLOUD_SSH_KEY}
+gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY} <<-EOF
   export MASTER_BASE_DIR=$MASTER_BASE_DIR
   export SEGMENT_BASE_DIR=$SEGMENT_BASE_DIR
+  export GOOGLE_CLOUD_BUCKET=${GOOGLE_CLOUD_BUCKET}
+  export GPDB_RPM=${GPDB_RPM}
   ./gpdb_setup_remote.sh
 EOF

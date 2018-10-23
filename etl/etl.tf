@@ -12,7 +12,7 @@ resource "google_compute_instance" "etl" {
   }
 
   network_interface {
-    subnetwork = "${google_compute_subnetwork.gpdb_subnet.name}"
+    subnetwork = "${var.subnet_name}"
 
     access_config {}
   }

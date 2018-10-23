@@ -9,11 +9,7 @@ Run
 ```
 gcloud init
 ```
-Login with google account, select the same zone in variable.tf.
-Default is us-west1-a.
-
-
-1. Download GCP service account credential
+1. Download GCP service account credential(json)
 
 Console Home -> IAM & admin -> Service accounts
 
@@ -26,52 +22,33 @@ ssh-keygen -f id_rsa -N ''
 ```
 Console Home -> Compute Engine -> Metadata -> SSH Keys
 
-3. Run gen_seg_config.sh with segment number, default is 1
+3. Config gpdb setup, enter following values
 ```
-NAME_PREFIX=gpdb NUM_SEGHOSTS=3 source gen_seg_config.sh
+./configure.sh
 ```
-Use **source** to execute in current shell. This will 
-introduce $NAME_PREFIX, which is necessary in gpdb_setup.sh
+Environment variables will be saved in env.sh
 
-4. Setup GCP resources via terraform
+4. Setup GCP resources via terraform 
 ```
-export GOOGLE_CLOUD_KEYFILE_JSON=secret.json
-#export HTTP_PROXY=127.0.0.1
+source env.sh
 terraform init
 terraform apply
 ```
 
-5. Test GPDB master
+5. Setup gpdb cluster, etl, and kafka environment
 ```
-gcloud compute ssh gpadmin@gpdb-mdw --ssh-key-file id_rsa
-gcloud compute ssh gpadmin@gpdb-kafka --ssh-key-file id_rsa
-gcloud compute ssh gpadmin@gpdb-etl --ssh-key-file id_rsa
-```
-
-6. Run gpdb_setup.sh with segment per host, default is 2
-```
-SEGMENT_PER_HOST=3 ./gpdb_setup.sh
+source env.sh
+./setup.sh
 ```
 
-7. Run kafka_stup.sh with kafka nodes per host, default is 8
+6. Connect to GPDB master, etl and kafka environment
 ```
-KAFKA_PER_HOST=4 ./kafka_setup.sh
-```
-
-8. Run etl_setup.sh
-```
-./etl_setup.sh
-```
-When using etl server, run
-```
-export LD_LIBRARY_PATH=/usr/local/lib
+gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY}
+gcloud compute ssh gpadmin@$NAME_PREFIX-kafka --ssh-key-file ${GCLOUD_SSH_KEY}
+gcloud compute ssh gpadmin@$NAME_PREFIX-etl --ssh-key-file ${GCLOUD_SSH_KEY}
 ```
 
-9. Delete all resources after work is done
+7. Delete all resources after work is done
 ```
 terraform destroy
 ```
-
-## TODOs
-
-1. Add storage disk to segment hosts, modify init_config dir locations.

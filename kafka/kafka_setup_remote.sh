@@ -1,9 +1,12 @@
 #!/bin/bash
 set -exo
 sudo ./kafka_setup_env.sh
-gsutil cp gs://gpdb-test/confluent-oss-4.0.0-2.11.tar.gz .
-tar -xf confluent-oss-4.0.0-2.11.tar.gz
-export PATH=`pwd`/confluent-4.0.0/bin:$PATH
+gsutil cp gs://${GOOGLE_CLOUD_BUCKET}/${KAFKA_PACKAGE} .
+tar -xf ${KAFKA_PACKAGE}
+KAFKA_DIR=$(ls -d confluent-*/)
+KAFKA_FULL_DIR=`pwd`/${KAFKA_DIR}/bin
+echo "export PATH=${KAFKA_FULL_DIR}:$PATH" >> ~/.bashrc
+source env.sh
 
 zookeeper-server-start -daemon zookeeper.properties
 

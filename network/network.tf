@@ -1,9 +1,3 @@
-provider "google" {
-  project = "data-gpdb-unite-gpdb-clients"
-  region  = "${var.region}"
-  zone    = "${var.region_zone}"
-}
-
 resource "google_compute_network" "gpdb_net" {
   name                    = "${var.name_prefix}net"
   auto_create_subnetworks = "false"
@@ -47,4 +41,8 @@ resource "google_compute_firewall" "allow-ssh" {
   allow {
     protocol = "icmp"
   }
+}
+
+output "subnet_name" {
+  value = "${google_compute_subnetwork.gpdb_subnet.name}"
 }
