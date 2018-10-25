@@ -1,0 +1,28 @@
+DATABASE: testdb
+USER: gpadmin
+HOST: gpdb-mdw 
+PORT: 5432
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: gpdb-kafka:9092
+        TOPIC: demo2
+      COLUMNS:
+        - NAME: c
+          TYPE: json
+      FORMAT: avro
+      AVRO_OPTION:
+        SCHEMA_REGISTRY_ADDR: http://gpdb-kafka:8081
+      ERROR_LIMIT: 0
+   OUTPUT:
+      TABLE: test
+      MAPPING:
+        - NAME: a
+          EXPRESSION: (c->'id')::text::bigint
+        - NAME: b
+          EXPRESSION: (c->'text')::text
+        - NAME: c
+          EXPRESSION: to_timestamp((c->'timestamp')::text::bigint)
+   COMMIT:
+      MAX_ROW: 1000
+      MINIMAL_INTERVAL: 200

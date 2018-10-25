@@ -1,0 +1,19 @@
+{
+    "namespace": "pivotal.demo",
+    "type": "record",
+    "name": "userpost",
+    "fields": [
+        {
+            "name": "id",
+            "type": "long"
+        },
+        {
+            "name": "text",
+            "type": "string"
+        },
+        {
+            "name": "timestamp",
+            "type": "long"
+        }
+    ]
+}

@@ -12,5 +12,4 @@ KAFKA:
    OUTPUT:
       TABLE: test
    COMMIT:
-      MAX_ROW: 0
       MINIMAL_INTERVAL: 200

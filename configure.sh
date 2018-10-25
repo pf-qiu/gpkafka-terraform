@@ -140,13 +140,12 @@ EOF
     if [ -z "${GCLOUD_SSH_KEY}" ]; then
         GCLOUD_SSH_KEY=`pwd`/id_rsa
         if [ ! -f "${GCLOUD_SSH_KEY}" ]; then
-            ssh-keygen -t rsa -N "" -f id_rsa
+            ssh-keygen -t rsa -N "" -f ${GCLOUD_SSH_KEY} 
         fi
     fi
     export GCLOUD_SSH_KEY
     echo "export GCLOUD_SSH_KEY=${GCLOUD_SSH_KEY}" >> ${CONFIG_VAR_FILE}
     PUBLIC_KEY=$(ssh-keygen -y -f ${GCLOUD_SSH_KEY})
-    echo "gpadmin:${PUBLIC_KEY} gpadmin" > /tmp/gcloud_meta
 fi
 }
 
