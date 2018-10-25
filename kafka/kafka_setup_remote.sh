@@ -5,8 +5,8 @@ gsutil cp gs://${GOOGLE_CLOUD_BUCKET}/${KAFKA_PACKAGE} .
 tar -xf ${KAFKA_PACKAGE}
 KAFKA_DIR=$(ls -d confluent-*/)
 KAFKA_FULL_DIR=`pwd`/${KAFKA_DIR}/bin
-echo "export PATH=${KAFKA_FULL_DIR}:$PATH" >> ~/.bashrc
-source env.sh
+echo "export PATH=${KAFKA_FULL_DIR}:$PATH" >> ~/.profile
+source ~/.profile
 
 zookeeper-server-start -daemon zookeeper.properties
 

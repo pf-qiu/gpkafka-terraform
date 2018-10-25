@@ -1,0 +1,16 @@
+DATABASE: testdb
+USER: gpadmin
+HOST: gpdb-mdw 
+PORT: 5432
+KAFKA:
+   INPUT:
+      SOURCE:
+        BROKERS: gpdb-kafka:9092
+        TOPIC: demo1 
+      FORMAT: csv
+      ERROR_LIMIT: 25
+   OUTPUT:
+      TABLE: test
+   COMMIT:
+      MAX_ROW: 0
+      MINIMAL_INTERVAL: 200
