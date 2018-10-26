@@ -31,3 +31,8 @@ gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY} <<-
   export GPDB_RPM=${GPDB_RPM}
   ./gpdb_setup_remote.sh
 EOF
+
+gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY} <<-EOF
+sed -i -e "s/10.20.0..\/32/10.20.0.0\/24/g" ${MASTER_DATA_DIRECTORY}/pg_hba.conf
+gpstop -u
+EOF
