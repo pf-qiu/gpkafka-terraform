@@ -43,9 +43,9 @@ source env.sh
 
 6. Connect to GPDB master, etl and kafka environment
 ```
-gcloud compute ssh gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY}
-gcloud compute ssh gpadmin@$NAME_PREFIX-kafka --ssh-key-file ${GCLOUD_SSH_KEY}
-gcloud compute ssh gpadmin@$NAME_PREFIX-etl --ssh-key-file ${GCLOUD_SSH_KEY}
+./login_gpdb.sh
+./login_etl.sh
+./login_kafka.sh
 ```
 
 7. Delete all resources after work is done

@@ -16,6 +16,3 @@ echo "Setup gpdb cluster"
 mkdir -p $MASTER_BASE_DIR
 echo "mkdir -p $SEGMENT_BASE_DIR" | gpssh -f hosts_segs
 gpinitsystem -a -c init_config -h hosts_segs
-
-sed -i -e "s/10.20.0..\/32/10.20.0.0\/24/g" ${MASTER_DATA_DIRECTORY}/pg_hba.conf
-gpstop -u
