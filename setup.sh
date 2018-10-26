@@ -16,4 +16,4 @@ pushd etl
 ./etl_setup.sh >etl_setup.log 2>etl_setup.err &
 popd
 
-wait
+wait $(jobs -p)

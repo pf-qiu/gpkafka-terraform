@@ -15,7 +15,7 @@ KAFKA:
         SCHEMA_REGISTRY_ADDR: http://gpdb-kafka:8081
       ERROR_LIMIT: 0
    OUTPUT:
-      TABLE: test
+      TABLE: demo2
       MAPPING:
         - NAME: a
           EXPRESSION: (c->'id')::text::bigint

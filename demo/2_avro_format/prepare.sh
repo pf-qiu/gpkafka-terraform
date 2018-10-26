@@ -2,7 +2,7 @@ gcloud compute ssh --ssh-flag="-T" gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCL
 dropdb testdb
 createdb testdb
 psql -c "create extension gpss" testdb
-psql -c "create table test(a bigint, b text, c timestamp)" testdb
+psql -c "create table demo2(a bigint, b text, c timestamp)" testdb
 EOF
 
 gcloud compute ssh --ssh-flag="-T" gpadmin@$NAME_PREFIX-kafka --ssh-key-file ${GCLOUD_SSH_KEY} <<-EOF

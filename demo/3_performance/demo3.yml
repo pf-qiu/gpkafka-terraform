@@ -6,10 +6,11 @@ KAFKA:
    INPUT:
       SOURCE:
         BROKERS: gpdb-kafka:9092
-        TOPIC: demo1 
+        TOPIC: demo3
       FORMAT: csv
       ERROR_LIMIT: 25
    OUTPUT:
-      TABLE: demo1
+      TABLE: demo3
    COMMIT:
-      MINIMAL_INTERVAL: 200
+      MAX_ROW: 1000000
+      MINIMAL_INTERVAL: 1000

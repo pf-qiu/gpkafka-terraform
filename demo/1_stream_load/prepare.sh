@@ -1,7 +1,7 @@
 gcloud compute ssh --ssh-flag="-T" gpadmin@$NAME_PREFIX-mdw --ssh-key-file ${GCLOUD_SSH_KEY} <<-EOF
 dropdb testdb
 createdb testdb
-psql -c "create table test(a text)" testdb
+psql -c "create table demo1(a text)" testdb
 EOF
 
 gcloud compute ssh --ssh-flag="-T" gpadmin@$NAME_PREFIX-kafka --ssh-key-file ${GCLOUD_SSH_KEY} <<-EOF
@@ -16,15 +16,3 @@ done
 EOF
 
 gcloud compute scp demo1.yml gpadmin@$NAME_PREFIX-etl:~/ --ssh-key-file ${GCLOUD_SSH_KEY}
-
-cat <<-EOF
-On gpdb-kafka:
-kafka-console-producer --broker-list gpdb-kafka:9092 --topic demo1
-
-On gpdb-etl:
-gpkafka load demo1.yml
-
-On gpdb-mdw:
-psql testdb
-select count(*) from test
-EOF
